@@ -31,38 +31,6 @@ a {
   color: black !important;
 }
 </style>
-<script type="module">
-onload = async () => {
-  const locs = [];
-  document.body.addEventListener("keydown", (e) => {
-    console.log(e.key);
-    if (e.key == "Escape") {
-      locs.splice(0); // clear array
-    }
-    if (e.key == "Enter") {
-      const pos = head.getAttribute("position");
-      const rot = head.getAttribute("rotation");
-      locs.push({ pos: pos.clone(), rot: { x: rot.x, y: rot.y, z: rot.z } });
-      
-      //console.log(stringifyArray(locs));
-      console.log(locs);
-      //console.log(JSON.stringify(locs.map(a => JSON.stringify(a)), null, 2));
-    }
-  });
-  /*
-  let n = 0;
-  setInterval(() => {
-    if (n == campos.length) {
-      n = 0;
-    }
-    const c = campos[n++];
-    console.log(c.pos);
-    head.setAttribute("position", c.pos);
-    head.setAttribute("rotation", c.rot);
-  }, 1000);
-  */
-};
-</script>
 </head>
 <body>
 
