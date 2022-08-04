@@ -1,7 +1,7 @@
 # 神山まるごと高専(仮称)
 
 - [神山まるごと高専(仮称)予定地 2022-04-02](https://codeforkosen.github.io/kamiyama-kosen/)
-- [神山まるごと高専(仮称)予定地 2022-08-05 with ディナー　＆ バンジー　＆ サウンド](https://codeforkosen.github.io/kamiyama-kosen/summerschool-dinner.html)
+- [神山まるごと高専(仮称)予定地 2022-08-05 with ディナー　＆バンジー　＆サウンド](https://codeforkosen.github.io/kamiyama-kosen/summerschool-dinner.html)
 
 ## ライセンス
 
