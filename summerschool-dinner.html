@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head>
+<title>神山まるごと高専(仮称)</title>
+<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+<!--
+  <script type="module" src="./drone-controls-mode2.js"></script>
+-->
+<script type="module" src="https://code4fukui.github.io/glb-viewer/mc-controls.js"></script>
+
+<style>
+#help {
+  position: absolute;
+  background-color: white;
+  border: 2px solid black;
+  padding: .3em;
+  color: black;
+  z-index: 30;
+  margin: .5em;
+}
+#usdz {
+  position: absolute;
+  bottom: 1em;
+  background-color: white;
+  border: 2px solid black;
+  padding: .3em;
+  color: black;
+  z-index: 30;
+  margin: .5em;
+}
+a {
+  color: black !important;
+}
+</style>
+</head>
+<body>
+
+<div id="help">操作方法: カーソルで移動、マウスで視点変更、スペースキーで上昇、シフトキーで下降</div>
+<div id="usdz"><a href=./kamiyama-kosen.usdz>USDZファイル for iPhone/iPad/Mac</a></div>
+
+<a-scene id="scene" background="color: #4080e0" renderer="colorManagement: true">
+  <a-assets timeout="10000">
+    <a-asset-item id="kosen" src="./summerschool-dinner0804.glb"></a-asset-item>
+    <!-- from gsi map -->
+    <!--
+    <a-asset-item id="base" src="./dem-low.glb"></a-asset-item>
+    -->
+  </a-assets>
+
+  <a-sky id="sky" material="" geometry="" scale="" rotation="0 40 0" src="./kamiyama-kosen-360.jpg"></a-sky>
+  <!--
+
+  <a-entity gltf-model="#base" x-position="80 -60 -50" scale="1 1 1" rotation="0 0 0">
+  </a-entity>
+  -->
+  <a-entity gltf-model="#kosen" position="0 1 -1" scale="100 100 100" rotation="0 -40 0"></a-entity>
+  
+
+
+  <a-entity light="type: ambient; color: #FFF"></a-entity>
+    <!-- <a-sphere id="sphere" color="#f22"></a-sphere> -->
+  <a-entity id="cameraRig" position="0 0 0" rotation="0 0 0">
+    <a-entity id="head" camera position="-9 31 26" rotation="0 0 0" mc-controls look-controls x-drone-controls-mode2></a-entity>
+    <a-entity oculus-touch-controls="hand:left" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+    <a-entity oculus-touch-controls="hand:right" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+    <!--
+    <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
+    <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+    -->
+    </a-entity>
+</a-scene>
+
+  
+</body>
+</html>
