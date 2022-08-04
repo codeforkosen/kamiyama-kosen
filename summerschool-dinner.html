@@ -35,7 +35,7 @@ a {
 <body>
 
 <div id="help">操作方法: カーソルで移動、マウスで視点変更、スペースキーで上昇、シフトキーで下降</div>
-<div id="usdz"><a href=./kamiyama-kosen.usdz>USDZファイル for iPhone/iPad/Mac</a></div>
+<div id="usdz"><a href=https://github.com/codeforkosen/kamiyama-kosen>src on GitHub</a></div>
 
 <a-scene id="scene" background="color: #4080e0" renderer="colorManagement: true">
   <a-assets timeout="10000">
@@ -44,31 +44,109 @@ a {
     <!--
     <a-asset-item id="base" src="./dem-low.glb"></a-asset-item>
     -->
+    <audio id="morning" src="kamiyama-sound-morning.mp3" x-preload="auto"></audio>
   </a-assets>
 
-  <a-sky id="sky" material="" geometry="" scale="" rotation="0 40 0" src="./kamiyama-kosen-360.jpg"></a-sky>
+  <a-sky id="sky" material="" geometry="" scale="" rotation="0 40 0" src="./kamiyama-kosen-360-20220804.jpg"></a-sky>
+
   <!--
 
   <a-entity gltf-model="#base" x-position="80 -60 -50" scale="1 1 1" rotation="0 0 0">
   </a-entity>
   -->
-  <a-entity gltf-model="#kosen" position="0 -1 -2" scale="8 8 8" rotation="0 -40 0"></a-entity>
-  
+  <a-entity id="item" gltf-model="#kosen" position="0 -1 -3" scale="8 8 8" rotation="0 140 0"></a-entity>
+  <a-entity id="bgm" sound="src: #morning; loop: true"></a-entity>  
 
 
   <a-entity light="type: ambient; color: #FFF"></a-entity>
     <!-- <a-sphere id="sphere" color="#f22"></a-sphere> -->
   <a-entity id="cameraRig" position="0 0 0" rotation="0 0 0">
     <a-entity id="head" camera position="0 0 0" rotation="0 0 0" mc-controls look-controls x-drone-controls-mode2></a-entity>
-    <a-entity oculus-touch-controls="hand:left" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
-    <a-entity oculus-touch-controls="hand:right" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+    <a-entity id="handleft" oculus-touch-controls="hand:left" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+    <a-entity id="handright" oculus-touch-controls="hand:right" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
     <!--
     <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
     <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
     -->
-    </a-entity>
+  </a-entity>
+  <a-entity id="camera" camera look-controls>
+    <a-text id="txt" value=" " position="0 1 -1" scale="3 3 3" align="center" color="#fff"></a-text>
+  </a-entity>
 </a-scene>
 
-  
+<script type="module">
+const playSound = () => {
+  bgm.components.sound.playSound();
+};
+
+let ot = new Date().getTime();
+let y = 0;
+let v = 0;
+let state = 0;
+let timer = null;
+
+const bungee = () => {
+  reset();
+  item.setAttribute("visible", false);
+  const M = 50; // kg 体重
+  const G = 9.8; // m/s2 重力加速度
+  const DT = 1 / 60; // sec 計算間隔
+  const DTM = 1000 / 60; // msec 計算間隔
+  const K1 = 10; // n/m ばね定数
+  const K2 = 0.24; // kg/m 空気抵抗係数
+  const L = 350; // m バンジーロープ長さ
+  const D = 0.98; // 速度減衰率
+
+  timer = setInterval(async () => {
+    if (state == 0) {
+      const t = (new Date().getTime() - ot) / 1000;
+      txt.setAttribute("value", Math.floor(4 - t))
+      if (t > 3) {
+        txt.setAttribute("value", "");
+        state = 1;
+        ot = new Date().getTime();
+      }
+    } else if (state == 1) {
+      const t = (new Date().getTime() - ot) / 1000;
+      const f = M * G - (y > L ? K1 * (y - L) : 0) - K2 * v * v;
+      const a = f / M;
+      v += a * DT;
+      v *= D;
+      y += v;
+      if (t > 20) {
+        reset();
+      }
+    }
+    sky.setAttribute("position", { x: 0, y: y, z: 0 });
+    //item.setAttribute("position", { x: 0, y: y - 1, z: -3 });
+    //box.style.top = y * 3;
+    //p.textContent = `t:${t} y:${y}`;
+  }, DTM);
+
+};
+const reset = () => {
+  sky.setAttribute("position", { x: 0, y: 0, z: 0 });
+  item.setAttribute("visible", true);
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
+  y = v = 0;
+  state = 0;
+  ot = new Date().getTime();
+  console.log("reset")
+};
+
+
+handright.addEventListener('triggerdown', bungee);
+handleft.addEventListener('triggerdown', bungee);
+handright.addEventListener('gripdown', reset);
+handleft.addEventListener('gripdown', reset);
+handright.addEventListener("abuttondown", playSound);
+document.body.onclick = playSound;
+//document.body.onclick = bungee
+</script>
+
+
 </body>
 </html>
