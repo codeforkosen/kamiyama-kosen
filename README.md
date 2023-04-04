@@ -1,7 +1,7 @@
 # 神山まるごと高専
 
 - [神山まるごと高専 スカラーシップパートナー一覧](https://codeforkosen.github.io/kamiyama-kosen/kamiyama-scholarship-partners.csv) ([on GitHub](https://github.com/codeforkosen/kamiyama-kosen/blob/main/kamiyama-scholarship-partners.csv))
-- [神山まるごと高専ホーム 2023-04-02](https://codeforkosen.github.io/kamiyama-kosen/kamiyama-kosen-home.html)
+- [神山まるごと高専オフィス 2023-04-02](https://codeforkosen.github.io/kamiyama-kosen/kamiyama-kosen-office.html)
 - [神山まるごと高専予定地 2022-04-02](https://codeforkosen.github.io/kamiyama-kosen/kamiyama-kosen.html)
 - [神山まるごと高専予定地 2022-08-05 with ディナー　＆バンジー　＆サウンド](https://codeforkosen.github.io/kamiyama-kosen/summerschool-dinner.html)
 
