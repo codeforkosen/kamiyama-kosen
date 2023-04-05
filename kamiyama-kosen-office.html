@@ -1,9 +1,9 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
 <title>神山まるごと高専オフィス</title>
-<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-<script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+<script src="https://code4fukui.github.io/aframe/dist/aframe-master.min.js"></script>
 <!--
-  <script type="module" src="./drone-controls-mode2.js"></script>
+<script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+<script type="module" src="./drone-controls-mode2.js"></script>
 -->
 <script type="module" src="https://code4fukui.github.io/glb-viewer/mc-controls.js"></script>
 
@@ -38,7 +38,7 @@ a {
 <div id="usdz"><a href=./kamiyama-kosen-office.usdz>USDZファイル for iPhone/iPad/Mac</a></div>
 
 <a-scene id="scene" background="color: #4080e0" renderer="colorManagement: true">
-  <a-assets timeout="10000">
+  <a-assets timeout="60000">
     <a-asset-item id="kosen" src="./kamiyama-kosen-office.glb"></a-asset-item>
     <!-- from gsi map -->
     <!--
